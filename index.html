@@ -97,6 +97,70 @@
             opacity: 1;
         }
         
+        /* New Publication Category Card Style */
+        .category-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        .category-card:hover {
+            transform: translateY(-8px);
+            border-color: #4f46e5;
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.2);
+        }
+        .category-card .arrow-icon {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            transition: transform 0.3s ease;
+            opacity: 0.5;
+        }
+        .category-card:hover .arrow-icon {
+            transform: translateX(5px);
+            opacity: 1;
+        }
+
+        /* Publication Modal Style */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #1e293b;
+            border-radius: 0.75rem;
+            border: 1px solid #334155;
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.95);
+            transition: all 0.3s ease-in-out;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+        
         /* Timeline Styles */
         .timeline-container { position: relative; padding: 2rem 0; }
         .timeline-container::before { content: ''; position: absolute; top: 0; left: 20px; height: 100%; width: 2px; background: #334155; }
@@ -236,19 +300,34 @@
         <section id="publications" class="py-20 bg-slate-900 section-wrapper">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16 fade-in-up">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white">Backed by Research</h2>
-                    <p class="text-lg text-slate-400 mt-4 max-w-2xl mx-auto">Our work is published in leading peer-reviewed journals and conferences, forming the backbone of our technology.</p>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">Our Foundation of Research</h2>
+                    <p class="text-lg text-slate-400 mt-4 max-w-2xl mx-auto">Our technology is built upon a deep foundation of peer-reviewed scientific research. Select a domain to explore our publications.</p>
                 </div>
-                <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-                    <div class="card p-6 rounded-lg fade-in-up" style="transition-delay: 100ms;"><h3 class="font-semibold text-white">A Novel Non-Invasive Method for Blood Glucose Estimation...</h3><p class="text-sm text-slate-400 mt-1">Journal of Biomedical Optics, 2024</p><a href="#" class="text-indigo-400 hover:text-indigo-300 font-semibold mt-3 inline-block">Read &rarr;</a></div>
-                    <div class="card p-6 rounded-lg fade-in-up" style="transition-delay: 200ms;"><h3 class="font-semibold text-white">Cuffless Blood Pressure Measurement from a Fingertip...</h3><p class="text-sm text-slate-400 mt-1">IEEE Transactions on Biomedical Engineering, 2025</p><a href="#" class="text-indigo-400 hover:text-indigo-300 font-semibold mt-3 inline-block">Read &rarr;</a></div>
-                    <div class="card p-6 rounded-lg fade-in-up" style="transition-delay: 300ms;"><h3 class="font-semibold text-white">Deep Learning for 12-Lead ECG Synthesis from PPG...</h3><p class="text-sm text-slate-400 mt-1">Nature Digital Medicine, 2024</p><a href="#" class="text-indigo-400 hover:text-indigo-300 font-semibold mt-3 inline-block">Read &rarr;</a></div>
-                    <div class="card p-6 rounded-lg fade-in-up" style="transition-delay: 400ms;"><h3 class="font-semibold text-white">Signal Processing Techniques for Noise Reduction in...</h3><p class="text-sm text-slate-400 mt-1">Conference on Neural Information Processing Systems, 2023</p><a href="#" class="text-indigo-400 hover:text-indigo-300 font-semibold mt-3 inline-block">Read &rarr;</a></div>
-                </div>
-                <div class="text-center mt-12 fade-in-up" style="transition-delay: 500ms;">
-                     <a href="#" class="accent-bg text-white px-8 py-3 rounded-lg text-lg font-semibold accent-bg-hover transition-transform transform hover:scale-105 shadow-lg">
-                        View All Publications
-                    </a>
+                <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    <div class="category-card fade-in-up" data-category="cardiovascular" style="transition-delay: 100ms;">
+                        <div class="accent-bg w-12 h-12 rounded-lg flex items-center justify-center mb-4"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg></div>
+                        <h3 class="text-xl font-bold text-white">Cardiovascular Health</h3>
+                        <p class="text-slate-400 mt-2">Novel methods for monitoring BP, blood glucose, and other key vitals.</p>
+                        <div class="arrow-icon"><svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></div>
+                    </div>
+                     <div class="category-card fade-in-up" data-category="ecg" style="transition-delay: 200ms;">
+                        <div class="accent-bg w-12 h-12 rounded-lg flex items-center justify-center mb-4"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+                        <h3 class="text-xl font-bold text-white">ECG & Cardiac AI</h3>
+                        <p class="text-slate-400 mt-2">Applying deep learning to synthesize and analyze cardiac signals.</p>
+                        <div class="arrow-icon"><svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></div>
+                    </div>
+                    <div class="category-card fade-in-up" data-category="ppg" style="transition-delay: 300ms;">
+                        <div class="accent-bg w-12 h-12 rounded-lg flex items-center justify-center mb-4"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg></div>
+                        <h3 class="text-xl font-bold text-white">PPG Research</h3>
+                        <p class="text-slate-400 mt-2">Innovations in photoplethysmography for non-invasive sensing.</p>
+                        <div class="arrow-icon"><svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></div>
+                    </div>
+                     <div class="category-card fade-in-up" data-category="sleep" style="transition-delay: 400ms;">
+                        <div class="accent-bg w-12 h-12 rounded-lg flex items-center justify-center mb-4"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg></div>
+                        <h3 class="text-xl font-bold text-white">Sleep Studies</h3>
+                        <p class="text-slate-400 mt-2">Algorithms and sensor technology for sleep apnea detection.</p>
+                        <div class="arrow-icon"><svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -375,6 +454,19 @@
             </div>
         </div>
     </footer>
+    
+    <!-- Publication Modal -->
+    <div id="publication-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="modal-title" class="text-2xl font-bold text-white"></h2>
+                <button id="modal-close" class="text-slate-400 hover:text-white transition-colors text-3xl">&times;</button>
+            </div>
+            <div id="modal-body" class="space-y-4">
+                <!-- Publication items will be injected here -->
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
@@ -502,6 +594,72 @@
             });
         }, { threshold: 0.1 });
         animatedElements.forEach(el => observer.observe(el));
+        
+        // --- Publication Modal Script ---
+        const publications = {
+            ppg: [
+                { title: 'Signal Processing for Noise Reduction in Wearable Sensors...', venue: 'NeurIPS Conference Proceedings, 2023', link: '#' },
+                { title: 'Miniaturization of Spectroscopic Sensors for...', venue: 'Optics Express, 2023', link: '#' },
+            ],
+            ecg: [
+                { title: 'Deep Learning for 12-Lead ECG Synthesis from PPG...', venue: 'Nature Digital Medicine, 2024', link: '#' },
+            ],
+            cardiovascular: [
+                { title: 'A Novel Non-Invasive Method for Blood Glucose Estimation...', venue: 'Journal of Biomedical Optics, 2024', link: '#' },
+                { title: 'Cuffless Blood Pressure Measurement from a Fingertip...', venue: 'IEEE Transactions on Biomedical Engineering, 2025', link: '#' },
+                { title: 'Multi-modal Sensor Fusion for Enhanced Vital Sign Accuracy', venue: 'Sensors Journal, 2024', link: '#' },
+                { title: 'AI in Predictive Health: A Longitudinal Study...', venue: 'The Lancet Digital Health, 2025', link: '#' },
+            ],
+            sleep: [
+                { title: 'Validation of a Novel Algorithm for Sleep Apnea Detection', venue: 'Journal of Clinical Sleep Medicine, 2025', link: '#' },
+            ]
+        };
+
+        const categoryCards = document.querySelectorAll('.category-card');
+        const modal = document.getElementById('publication-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const modalClose = document.getElementById('modal-close');
+
+        categoryCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const category = card.dataset.category;
+                const categoryData = publications[category];
+                
+                modalTitle.textContent = card.querySelector('h3').textContent;
+                modalBody.innerHTML = '';
+
+                if (categoryData && categoryData.length > 0) {
+                    categoryData.forEach(pub => {
+                        const pubElement = document.createElement('div');
+                        pubElement.className = 'p-4 border border-slate-700 rounded-lg flex justify-between items-center';
+                        pubElement.innerHTML = `
+                            <div>
+                                <p class="font-semibold text-white">${pub.title}</p>
+                                <p class="text-sm text-slate-400">${pub.venue}</p>
+                            </div>
+                            <a href="${pub.link}" class="accent-bg text-white px-3 py-1 rounded-md text-sm font-semibold accent-bg-hover transition-all shrink-0 ml-4">Read</a>
+                        `;
+                        modalBody.appendChild(pubElement);
+                    });
+                } else {
+                    modalBody.innerHTML = '<p class="text-slate-400">No publications in this category yet.</p>';
+                }
+                
+                modal.classList.add('active');
+            });
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
     </script>
 
 </body>
